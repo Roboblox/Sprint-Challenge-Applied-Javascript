@@ -7,21 +7,40 @@
 //
 //  Each tab should look like this:
 //    <div class="tab">topic here</div>
-// axios
-//   .get("https://lambda-times-backend.herokuapp.com/topics")
-//   .then((response) => {
-//     console.log(
-//       "the response from the API, organized for us by axios",
-//       response.data
-//     );
-//   })
-//   .catch((error) => {
-//     console.log(
-//       "something went wrong, hopefully the error tells us what",
-//       error
-//     );
-//   });
-// function tabMaker(object) {
+const topics = document.querySelector(".topics");
+function tabMaker(object) {
+  const tab = document.createElement("div");
+  tab.classList.add("tab");
+  tab.textContent = object;
+
+  return tab;
+}
+function topicMaker() {
+  const thePromise = axios.get(
+    "https://lambda-times-backend.herokuapp.com/topics"
+  );
+
+  thePromise
+    .then((response) => {
+      const tab = response.data.topics;
+      tab.forEach((element) => {
+        const topic = tabMaker(element);
+        topics.appendChild(topic);
+      });
+      console.log(topics);
+      console.log(
+        "the response from the API, organized for us by axios",
+        response.data
+      );
+    })
+    .catch((error) => {
+      console.log(
+        "something went wrong, hopefully the error tells us what",
+        error
+      );
+    });
+}
+topicMaker();
 //   const tab = document.createElement("div");
 
 //   tab.classList.add("tab");
@@ -30,30 +49,6 @@
 
 //   //   document.querySelector(".topics").appendChild(tab);
 
-//   return tab;
-// }
-axios
-  .get("https://lambda-times-backend.herokuapp.com/topics/")
-  .then((response) => {
-    this.tab = response.data.map(function (item) {
-      console.log(item);
-    });
-
-    // let topic = tabMaker(reponse.data);
-    // console.log(topic);
-    // document.querySelector(".topics").appendChild(topic);
-
-    console.log(
-      "the response from the API, organized for us by axios",
-      response.data
-    );
-  })
-  .catch((error) => {
-    console.log(
-      "something went wrong, hopefully the error tells us what",
-      error
-    );
-  });
 // let topics = axios
 //   .get(element)
 //   .then((response) => {
