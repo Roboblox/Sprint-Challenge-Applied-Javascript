@@ -23,18 +23,13 @@ axios
   .get("https://lambda-times-backend.herokuapp.com/articles")
   .then((response) => {
     const carder = response.data.articles;
-    console.log(carder);
+    cardsContainer = document.querySelector(".cards-container");
     const keys = Object.entries(carder);
     for (let i = 0; i < keys.length; i++) {
-      console.log(keys);
-      console.log(keys[i]);
       for (let j = 0; j < keys[i][1].length; j++) {
-        console.log(keys[i][1].length);
-        console.log(keys[i][1][j]);
-        cardsContainer = document.querySelector(".cards-container");
         const cards = cardMaker(keys[i][1][j]);
         cardsContainer.appendChild(cards);
-        console.log(".cards-container");
+        console.log(cardsContainer);
       }
     }
 
@@ -69,61 +64,8 @@ function cardMaker(object) {
 
   card.appendChild(headline);
   card.appendChild(author);
-  author.appendChild(authorName);
   author.appendChild(imageContainer);
+  author.appendChild(authorName);
   imageContainer.appendChild(image);
   return card;
 }
-
-// keys.forEach((element) => {
-//   console.log(element);
-//   const card = document.createElement("div");
-//   card.classList.add("card");
-//   card.textContent = element;
-//   cardsContainer.appendChild(card);
-//   console.log(cardsContainer);
-
-// });
-
-//   for (let n = 0; n < keys[i].length; i++) {
-//     console.log(keys[i][1]);
-//     // const headline = document.createElement("div");
-//     // headline.classList.add("headline");
-//     // headline.textContent = obj[n][i].headline;
-//     // card.appendChild(headline);
-//     // console.log(card);
-//   }
-// }
-
-// console.log(keys[i][0].length);
-
-// //  const image = cardMaker(element);
-// console.log(author);
-// console.log(cardsContainer);
-
-// let text = [];
-// for (let key in carder) {
-//   text.push(carder[key]);
-// }
-// console.log(text.length);
-
-// for (let i = 0; i < text.length; i++) {
-//   console.log(text[i].length);
-
-//   text[i].forEach((element) => {
-//     console.log(element);
-
-//   });
-// }
-// text1.forEach((element) => {
-//   console.log(element);
-// });
-
-//   // const card = cardMaker(carder);
-//   // console.log(card);
-// }
-// let { javascipt, bootstrap, technology, jquery, node } = carder;
-
-// keys.forEach((element) => {
-//   console.log(element);
-//   const card = cardMaker(element);

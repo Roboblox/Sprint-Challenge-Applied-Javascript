@@ -16,22 +16,14 @@ function tabMaker(object) {
   return tab;
 }
 function topicMaker() {
-  const thePromise = axios.get(
-    "https://lambda-times-backend.herokuapp.com/topics"
-  );
-
-  thePromise
+  axios
+    .get("https://lambda-times-backend.herokuapp.com/topics")
     .then((response) => {
       const tab = response.data.topics;
       tab.forEach((element) => {
         const topic = tabMaker(element);
         topics.appendChild(topic);
       });
-
-      // console.log(
-      //   "the response from the API, organized for us by axios",
-      //   response.data.topics
-      // );
     })
     .catch((error) => {
       console.log(
