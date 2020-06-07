@@ -7,7 +7,8 @@
 //
 //  Each tab should look like this:
 //    <div class="tab">topic here</div>
-const topics = document.querySelector(".topics");
+
+// tab creation function
 function tabMaker(object) {
   const tab = document.createElement("div");
   tab.classList.add("tab");
@@ -15,10 +16,13 @@ function tabMaker(object) {
 
   return tab;
 }
+
+//function that gets data and puts it in the tabMaker function
 function topicMaker() {
   axios
     .get("https://lambda-times-backend.herokuapp.com/topics")
     .then((response) => {
+      const topics = document.querySelector(".topics");
       const tab = response.data.topics;
       tab.forEach((element) => {
         const topic = tabMaker(element);
@@ -32,4 +36,5 @@ function topicMaker() {
       );
     });
 }
+// function call
 topicMaker();
