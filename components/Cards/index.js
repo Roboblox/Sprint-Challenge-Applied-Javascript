@@ -19,69 +19,102 @@
 //
 // Use your function to create a card for each of the articles and add the card to the DOM.
 const cardsContainer = document.querySelector(".cards-container");
+const card = document.querySelector("card");
+const author = document.createElement("div");
+
 function cardMaker(object) {
-  const card = document.createElement("div");
   const headline = document.createElement("div");
-  const author = document.createElement("div");
+
   const imageContainer = document.createElement("div");
   const image = document.createElement("img");
   const authorName = document.createElement("span");
 
-  card.classList.add("card");
   headline.classList.add("headline");
   author.classList.add("author");
   imageContainer.classList.add("img-container");
 
-  // card.textContent = object;
+  author.textContent = object;
   // headline.textContent = object;
   authorName.textContent = object.authorName;
+  // headline.textContent = object.headline;
+  image.textContent = object.authorPhoto;
+  // authorName.textContent = object.authorName;
+
   // card.appendChild(headline);
-  card.appendChild(authorName);
-  return card;
+  author.appendChild(authorName);
+  author.appendChild(imageContainer);
+  imageContainer.appendChild(image);
+  return author;
 }
-function cardMakerPlus() {
-  const axiosy = axios.get(
-    "https://lambda-times-backend.herokuapp.com/articles"
-  );
+// function cardMakerPlus() {
+const axiosy = axios.get("https://lambda-times-backend.herokuapp.com/articles");
 
-  axiosy
-    .then((response) => {
-      // const
-      const carder = response.data.articles.javascript;
+axiosy
+  .then((response) => {
+    // const
+    const carder = response.data.articles;
+    console.log(carder);
+    const keys = Object.keys(carder);
+    console.log(keys);
+    keys.forEach((element) => {
+      console.log(element);
+      const card = document.createElement("div");
+      card.classList.add("card");
+      card.textContent = element;
+      cardsContainer.appendChild(card);
+      console.log(cardsContainer);
+    });
 
-      // console.log(carder.javascript[1].authorName);
-      console.log(carder);
-      // let { javascipt, bootstrap, technology, jquery, node } = carder;
-      // console.log(carder);
+    let text = [];
+    for (let key in carder) {
+      text.push(carder[key]);
+    }
+    console.log(text);
 
-      carder1 = Object.entries(response.data.articles.javascript);
-      console.log(carder1);
-      for (let prop in carder1) {
-        console.log(carder1[prop]);
-      }
-
-      carder.forEach((element) => {
-        console.log("Hello");
+    for (let i = 0; i < text.length; i++) {
+      console.log(text[i]);
+      const author = cardMaker(text[i]);
+      text[i].forEach((element) => {
         console.log(element);
-
-        const card = cardMaker(element);
-        const card2 = response.data.articles[0];
-
-        cardsContainer.appendChild(card);
+        const author = cardMaker(element);
+        // const headline = cardMaker(element);
+        //  const image = cardMaker(element);
+        console.log(author);
         console.log(cardsContainer);
       });
+    }
+    // text1.forEach((element) => {
+    //   console.log(element);
+    // });
 
-      console.log(
-        "the response from the API, organized for us by axios",
-        response.data
-      );
-    })
-    .catch((error) => {
-      console.log(
-        "something went wrong, hopefully the error tells us what",
-        error
-      );
-    });
-  return "Hello";
-}
-cardMakerPlus();
+    //   // const card = cardMaker(carder);
+    //   // console.log(card);
+    // }
+    // let { javascipt, bootstrap, technology, jquery, node } = carder;
+
+    // keys.forEach((element) => {
+    //   console.log(element);
+    //   const card = cardMaker(element);
+
+    // });
+    // values.forEach((element) => {
+    //   // console.log(element.authorName);
+    //   // const card = cardMaker(element.authorName);
+    //   // cardsContainer.append(card);
+    //   // console.log(cardsContainer);
+    // });
+
+    console.log(
+      "the response from the API, organized for us by axios",
+      response.data
+    );
+  })
+  .catch((error) => {
+    console.log(
+      "something went wrong, hopefully the error tells us what",
+      error
+    );
+  });
+// return "Hello";
+// }
+// cardMakerPlus();
